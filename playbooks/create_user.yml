@@ -1,0 +1,31 @@
+---
+- name: Create user on OpenStack environment
+  hosts: local
+  connection: local
+  environment:
+    OS_CLIENT_CONFIG_FILE: "{{ playbook_dir }}/clouds.yml"
+    OS_IDENTITY_API_VERSION: 3
+
+  tasks:
+    - name: Authenticate to specified OpenStack provider
+      os_auth:
+        cloud: mycloud
+
+    - os_user:
+        auth:
+          auth_url: http://{{ os_host }}:5000/v3
+          username: {{ os_user }}
+          password: {{ os_password }}
+          project_name: admin
+          project_domain_name: Default
+          user_domain_name: Default
+        state: present
+        name: {{ user_name }}
+        password: {{ user_passsword }}
+        email: {{ user_name }}@example.com
+        domain: Default
+        default_project: admin
+
+    - name: Show service catalog
+      debug:
+        var: service_catalog

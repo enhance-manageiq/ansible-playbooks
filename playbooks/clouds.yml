@@ -1,0 +1,11 @@
+clouds:
+  mycloud:
+    region_name: RegionOne
+    auth:
+      auth_url: http://{{ os_host }}:5000/v3
+      username: {{ os_user }}
+      password: {{ os_password }}
+      project_name: admin
+      project_domain_name: Default
+      user_domain_name: Default
+    validate_certs: no
