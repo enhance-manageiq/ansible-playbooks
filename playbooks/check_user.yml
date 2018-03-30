@@ -41,6 +41,17 @@
         message: "{{ user_name }} have permission"
       when: message is undefined
 
+    # http://docs.ansible.com/ansible/latest/modules/mail_module.html
+    - name: Send mail
+      mail:
+        host: smtp.gmail.com
+        port: 587
+        username: username@gmail.com
+        passsword: mysecret
+        subject: Request-report
+        body: "{{ message }}"
+        to: user@gmail.com
+
     - name : Debug
       debug:
         var: message
